@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <Extern href="stdidcmd.h"/>
+    <Extern href="vsshlids.h"/>
+
+    <Commands package="guidBrowserReloadPackage">
+        <Buttons>
+            <Button guid="guidBrowserReloadCmdSet" id="EnableReloadCommandId" priority="0x0100" type="Button">
+                <Parent guid="guidBrowserLinkCmdSet" id="IDG_BROWSERLINK_COMMANDS"/>
+                <Strings>
+                    <ButtonText>Enable Reload on Save</ButtonText>
+                </Strings>
+            </Button>
+        </Buttons>
+    </Commands>
+
+    <Symbols>
+        <!-- This is the package guid. -->
+        <GuidSymbol name="guidBrowserReloadPackage" value="{2d8aa02a-8810-421f-97b9-86efc573fea3}" />
+
+        <!-- This is the guid used to group the menu commands together -->
+        <GuidSymbol name="guidBrowserReloadCmdSet" value="{44f3346d-7059-4428-9d81-2f16be71e28e}">
+            <IDSymbol name="EnableReloadCommandId" value="0x0100" />
+        </GuidSymbol>
+
+        <GuidSymbol name="guidBrowserLinkCmdSet" value="{30947ebe-9147-45f9-96cf-401bfc671a82}">
+            <IDSymbol name="IDG_BROWSERLINK_COMMANDS" value="0x2001" />
+        </GuidSymbol>
+    </Symbols>
+</CommandTable>
