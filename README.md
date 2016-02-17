@@ -1,6 +1,6 @@
 # Browser Reload on save
 
-[![Build status](https://ci.appveyor.com/api/projects/status/o508r208jkg13ob3?svg=true)](https://ci.appveyor.com/project/madskristensen/browsersync)
+[![Build status](https://ci.appveyor.com/api/projects/status/0skq7nlbcvdecv9a?svg=true)](https://ci.appveyor.com/project/madskristensen/browserreloadonsave)
 
 Download the extension at the
 [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/5741a548-5179-4a77-ad96-fca71535774d)
