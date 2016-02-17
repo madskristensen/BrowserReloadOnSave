@@ -4,7 +4,7 @@
         <Identity Id="2d8aa02a-8810-421f-97b9-86efc573fea3" Version="1.0" Language="en-US" Publisher="Mads Kristensen" />
         <DisplayName>Browser Reload on Save</DisplayName>
         <Description xml:space="preserve">A Visual Studio extension for ASP.NET projects that leverages Browser Link to to reload all connected browsers when files are saved in Visual Studio.</Description>
-        <MoreInfo>https://github.com/madskristensen/BrowserSync</MoreInfo>
+        <MoreInfo>https://github.com/madskristensen/BrowserReloadOnSave</MoreInfo>
         <License>Resources\LICENSE</License>
         <Icon>Resources\Icon.png</Icon>
         <PreviewImage>Resources\Preview.png</PreviewImage>

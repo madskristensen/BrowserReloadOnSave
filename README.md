@@ -3,9 +3,9 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/0skq7nlbcvdecv9a?svg=true)](https://ci.appveyor.com/project/madskristensen/browserreloadonsave)
 
 Download the extension at the
-[VS Gallery](https://visualstudiogallery.msdn.microsoft.com/5741a548-5179-4a77-ad96-fca71535774d)
+[VS Gallery](https://visualstudiogallery.msdn.microsoft.com/46eef4d9-045b-4596-bd7f-eee980bb5450)
 or get the
-[nightly build](http://vsixgallery.com/extension/2d8aa02a-8810-421f-97b9-86efc573fea3/)
+[CI build](http://vsixgallery.com/extension/2d8aa02a-8810-421f-97b9-86efc573fea3/)
 
 ------------------------------------------
 
