@@ -10,8 +10,8 @@ using Microsoft.ApplicationInsights;
 /// </summary>
 public static class Telemetry
 {
-    private static TelemetryClient _telemetry;
-    private static DTEEvents _events;
+    static TelemetryClient _telemetry;
+    static DTEEvents _events;
 
     /// <summary>Initializes the telemetry client.</summary>
     public static void Initialize(DTE2 dte, string version, string telemetryKey)

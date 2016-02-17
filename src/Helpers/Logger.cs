@@ -4,10 +4,10 @@ using Microsoft.VisualStudio.Shell.Interop;
 
 public static class Logger
 {
-    private static IVsOutputWindowPane pane;
-    private static object _syncRoot = new object();
-    private static IServiceProvider _provider;
-    private static string _name;
+    static IVsOutputWindowPane pane;
+    static object _syncRoot = new object();
+    static IServiceProvider _provider;
+    static string _name;
 
     public static void Initialize(IServiceProvider provider, string name)
     {
@@ -25,12 +25,12 @@ public static class Logger
         {
             if (EnsurePane())
             {
-                pane.OutputString(DateTime.Now.ToString() + ": " + message + Environment.NewLine);
+                pane.OutputString(DateTime.Now + ": " + message + Environment.NewLine);
             }
         }
-        catch
+        catch (Exception ex)
         {
-            // Do nothing
+            System.Diagnostics.Debug.Write(ex);
         }
     }
 
@@ -43,7 +43,7 @@ public static class Logger
         }
     }
 
-    private static bool EnsurePane()
+    static bool EnsurePane()
     {
         if (pane == null)
         {
