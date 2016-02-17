@@ -47,8 +47,9 @@ namespace BrowserReloadOnSave
             base.OnDisconnecting(connection);
         }
 
-        public void Reload()
+        public void Reload(string extension)
         {
+            Telemetry.TrackEvent("Saved ." + extension);
             Browsers.Clients(_connections.ToArray()).Invoke("reload");
         }
 
@@ -75,7 +76,7 @@ namespace BrowserReloadOnSave
 
                 var watcher = (FileSystemWatcher)sender;
                 watcher.EnableRaisingEvents = false;
-                Reload();
+                Reload(ext);
                 watcher.EnableRaisingEvents = true;
             }
         }
@@ -85,6 +86,7 @@ namespace BrowserReloadOnSave
             _extensions = VSPackage.Options.FileExtensions.Split(';');
             _ignorePatterns = VSPackage.Options.GetIgnorePatterns();
             Watcher.EnableRaisingEvents = VSPackage.Options.EnableReload;
+            Telemetry.TrackEvent("Updated settings");
         }
     }
 }
