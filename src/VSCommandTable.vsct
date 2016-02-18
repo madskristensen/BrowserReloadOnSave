@@ -20,7 +20,7 @@
         <GuidSymbol name="guidBrowserReloadPackage" value="{2d8aa02a-8810-421f-97b9-86efc573fea3}" />
 
         <!-- This is the guid used to group the menu commands together -->
-        <GuidSymbol name="guidBrowserReloadCmdSet" value="{44f3346d-7059-4428-9d81-2f16be71e28e}">
+        <GuidSymbol name="guidBrowserReloadCmdSet" value="{bc3f56c7-c6a3-405d-a92b-b65f24dcf687}">
             <IDSymbol name="EnableReloadCommandId" value="0x0100" />
         </GuidSymbol>
 

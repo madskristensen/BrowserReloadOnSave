@@ -8,7 +8,7 @@ namespace BrowserReloadOnSave
     internal sealed partial class PackageGuids
     {
         public const string guidBrowserReloadPackageString = "2d8aa02a-8810-421f-97b9-86efc573fea3";
-        public const string guidBrowserReloadCmdSetString = "44f3346d-7059-4428-9d81-2f16be71e28e";
+        public const string guidBrowserReloadCmdSetString = "bc3f56c7-c6a3-405d-a92b-b65f24dcf687";
         public const string guidBrowserLinkCmdSetString = "30947ebe-9147-45f9-96cf-401bfc671a82";
         public static Guid guidBrowserReloadPackage = new Guid(guidBrowserReloadPackageString);
         public static Guid guidBrowserReloadCmdSet = new Guid(guidBrowserReloadCmdSetString);
