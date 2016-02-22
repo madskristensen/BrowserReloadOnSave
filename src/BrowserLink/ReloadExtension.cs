@@ -24,7 +24,7 @@ namespace BrowserReloadOnSave
             Watcher = new FileSystemWatcher(folder);
             Watcher.Changed += FileChanged;
             Watcher.IncludeSubdirectories = true;
-            Watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.CreationTime;
+            Watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.Size;
             Watcher.EnableRaisingEvents = VSPackage.Options.EnableReload;
 
             VSPackage.Options.Saved += OptionsSaved;
@@ -66,6 +66,9 @@ namespace BrowserReloadOnSave
 
         async void FileChanged(object sender, FileSystemEventArgs e)
         {
+            if (e.ChangeType != WatcherChangeTypes.Changed)
+                return;
+
             string file = e.FullPath.ToLowerInvariant();
             string ext = Path.GetExtension(file).TrimStart('.');
 
@@ -77,8 +80,10 @@ namespace BrowserReloadOnSave
 
                 var watcher = (FileSystemWatcher)sender;
                 watcher.EnableRaisingEvents = false;
+
                 await Task.Delay(VSPackage.Options.Delay);
                 Reload(ext);
+
                 watcher.EnableRaisingEvents = true;
             }
         }
