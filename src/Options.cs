@@ -7,14 +7,21 @@ namespace BrowserReloadOnSave
 {
     public class Options : DialogPage
     {
-        const string fileExtensions = "css;js;html;htm;cshtml;vbhtml;aspx;ascx;master";
+        const string fileExtensions = "css;js;html;htm;cshtml;vbhtml;aspx;ascx;master;jpg;jpeg;gif;png;svg";
         const string ignoreList = @"\node_modules\;\bower_components\;\typings\;\lib\;\vendor\";
+        const int delay = 250;
 
         [Category("General")]
         [DisplayName("Enable reload on save")]
         [Description("When enabled, every time a file is saved the connected browsers will reload.")]
         [DefaultValue(true)]
         public bool EnableReload { get; set; } = true;
+
+        [Category("General")]
+        [DisplayName("Delay")]
+        [Description("The delay from a file has changed to the reload is triggered. Default is 250 milliseconds.")]
+        [DefaultValue(delay)]
+        public int Delay { get; set; } = delay;
 
         [Category("Filter")]
         [DisplayName("File extensions")]

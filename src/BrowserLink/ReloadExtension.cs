@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using EnvDTE;
 using Microsoft.VisualStudio.Web.BrowserLink;
 
@@ -63,7 +64,7 @@ namespace BrowserReloadOnSave
             }
         }
 
-        void FileChanged(object sender, FileSystemEventArgs e)
+        async void FileChanged(object sender, FileSystemEventArgs e)
         {
             string file = e.FullPath.ToLowerInvariant();
             string ext = Path.GetExtension(file).TrimStart('.');
@@ -76,6 +77,7 @@ namespace BrowserReloadOnSave
 
                 var watcher = (FileSystemWatcher)sender;
                 watcher.EnableRaisingEvents = false;
+                await Task.Delay(VSPackage.Options.Delay);
                 Reload(ext);
                 watcher.EnableRaisingEvents = true;
             }
