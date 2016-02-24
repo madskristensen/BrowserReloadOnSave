@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 using EnvDTE;
 using Microsoft.VisualStudio.Web.BrowserLink;
 
@@ -13,24 +13,28 @@ namespace BrowserReloadOnSave
         IEnumerable<string> _extensions = VSPackage.Options.FileExtensions.Split(';');
         IEnumerable<string> _ignorePatterns = VSPackage.Options.GetIgnorePatterns();
         List<BrowserLinkConnection> _connections = new List<BrowserLinkConnection>();
+
         bool _isDisposed;
         Project _project;
+        Timer _timer;
+        FileSystemWatcher _watcher;
+        int _state;
 
         public ReloadExtension(Project project)
         {
             _project = project;
             string folder = project.Properties.Item("FullPath").Value?.ToString();
 
-            Watcher = new FileSystemWatcher(folder);
-            Watcher.Changed += FileChanged;
-            Watcher.IncludeSubdirectories = true;
-            Watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.Size;
-            Watcher.EnableRaisingEvents = VSPackage.Options.EnableReload;
+            _watcher = new FileSystemWatcher(folder);
+            _watcher.Changed += FileChanged;
+            _watcher.IncludeSubdirectories = true;
+            _watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.Size;
+            _watcher.EnableRaisingEvents = VSPackage.Options.EnableReload;
+
+            _timer = new Timer(TimerElapsed, null, 0, VSPackage.Options.Delay);
 
             VSPackage.Options.Saved += OptionsSaved;
         }
-
-        public FileSystemWatcher Watcher { get; }
 
         public override void OnConnected(BrowserLinkConnection connection)
         {
@@ -48,9 +52,8 @@ namespace BrowserReloadOnSave
             base.OnDisconnecting(connection);
         }
 
-        public void Reload(string extension)
+        public void Reload()
         {
-            Telemetry.TrackEvent("Saved ." + extension);
             Browsers.Clients(_connections.ToArray()).Invoke("reload");
         }
 
@@ -59,12 +62,14 @@ namespace BrowserReloadOnSave
             if (!_isDisposed)
             {
                 VSPackage.Options.Saved -= OptionsSaved;
-                Watcher.Dispose();
+                _watcher.Dispose();
+                _timer.Dispose();
+
                 _isDisposed = true;
             }
         }
 
-        async void FileChanged(object sender, FileSystemEventArgs e)
+        void FileChanged(object sender, FileSystemEventArgs e)
         {
             if (e.ChangeType != WatcherChangeTypes.Changed)
                 return;
@@ -78,13 +83,23 @@ namespace BrowserReloadOnSave
                 if (ext == "css" && !_project.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase))
                     return;
 
-                var watcher = (FileSystemWatcher)sender;
-                watcher.EnableRaisingEvents = false;
+                Interlocked.Exchange(ref _state, 2);
+                Telemetry.TrackEvent("Saved ." + ext);
+            }
+        }
 
-                await Task.Delay(VSPackage.Options.Delay);
-                Reload(ext);
+        void TimerElapsed(object state)
+        {
+            //Move from changed + refresh pending to just refresh pending
+            if (Interlocked.CompareExchange(ref _state, 1, 2) == 2)
+            {
+                return;
+            }
 
-                watcher.EnableRaisingEvents = true;
+            //Move from refresh pending without a recent change to no refresh pending
+            if (Interlocked.CompareExchange(ref _state, 0, 1) == 1)
+            {
+                Reload();
             }
         }
 
@@ -92,7 +107,7 @@ namespace BrowserReloadOnSave
         {
             _extensions = VSPackage.Options.FileExtensions.Split(';');
             _ignorePatterns = VSPackage.Options.GetIgnorePatterns();
-            Watcher.EnableRaisingEvents = VSPackage.Options.EnableReload;
+            _watcher.EnableRaisingEvents = VSPackage.Options.EnableReload;
             Telemetry.TrackEvent("Updated settings");
         }
     }
