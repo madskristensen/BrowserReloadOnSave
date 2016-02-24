@@ -54,6 +54,7 @@ namespace BrowserReloadOnSave
 
         public void Reload()
         {
+            Telemetry.TrackEvent("Reloaded");
             Browsers.Clients(_connections.ToArray()).Invoke("reload");
         }
 
@@ -84,7 +85,6 @@ namespace BrowserReloadOnSave
                     return;
 
                 Interlocked.Exchange(ref _state, 2);
-                Telemetry.TrackEvent("Saved ." + ext);
             }
         }
 
