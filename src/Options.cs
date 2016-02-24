@@ -14,8 +14,8 @@ namespace BrowserReloadOnSave
         [Category("General")]
         [DisplayName("Enable reload on save")]
         [Description("When enabled, every time a file is saved the connected browsers will reload.")]
-        [DefaultValue(true)]
-        public bool EnableReload { get; set; } = true;
+        [DefaultValue(false)]
+        public bool EnableReload { get; set; }
 
         [Category("General")]
         [DisplayName("Delay")]
