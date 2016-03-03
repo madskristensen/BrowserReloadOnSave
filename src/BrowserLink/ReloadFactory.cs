@@ -24,6 +24,9 @@ namespace BrowserReloadOnSave
 
         public BrowserLinkExtension CreateExtensionInstance(BrowserLinkConnection connection)
         {
+            if (connection.Project == null)
+                return null;
+
             // Create one extension per project
             if (!Extensions.ContainsKey(connection.Project))
             {
