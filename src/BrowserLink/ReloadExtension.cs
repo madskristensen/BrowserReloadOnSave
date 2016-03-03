@@ -23,12 +23,15 @@ namespace BrowserReloadOnSave
         public ReloadExtension(Project project)
         {
             _project = project;
-            string folder = project.Properties.Item("FullPath").Value?.ToString();
+            string folder = project.GetRootFolder();
+
+            if (string.IsNullOrEmpty(folder))
+                return;
 
             _watcher = new FileSystemWatcher(folder);
             _watcher.Changed += FileChanged;
             _watcher.IncludeSubdirectories = true;
-            _watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.Size;
+            _watcher.NotifyFilter = NotifyFilters.Size | NotifyFilters.CreationTime;
             _watcher.EnableRaisingEvents = VSPackage.Options.EnableReload;
 
             _timer = new Timer(TimerElapsed, null, 0, VSPackage.Options.Delay);

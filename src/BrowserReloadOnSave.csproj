@@ -49,6 +49,7 @@
     <Compile Include="BrowserLink\ReloadExtension.cs" />
     <Compile Include="BrowserLink\ReloadFactory.cs" />
     <Compile Include="Commands\EnableReloadCommand.cs" />
+    <Compile Include="Helpers\DteHelpers.cs" />
     <Compile Include="Options.cs">
       <SubType>Component</SubType>
     </Compile>
