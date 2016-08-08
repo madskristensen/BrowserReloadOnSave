@@ -21,8 +21,6 @@ namespace BrowserReloadOnSave
             Options = (Options)GetDialogPage(typeof(Options));
 
             Logger.Initialize(this, Vsix.Name);
-            Telemetry.Initialize(this, Vsix.Version, "a97d5a5b-1ce8-4a18-8ee6-1755367949cb");
-
             EnableReloadCommand.Initialize(this);
 
             base.Initialize();

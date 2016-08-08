@@ -57,7 +57,6 @@ namespace BrowserReloadOnSave
 
         public void Reload()
         {
-            Telemetry.TrackEvent("Reloaded");
             Browsers.Clients(_connections.ToArray()).Invoke("reload");
         }
 
@@ -111,7 +110,6 @@ namespace BrowserReloadOnSave
             _extensions = VSPackage.Options.FileExtensions.Split(';');
             _ignorePatterns = VSPackage.Options.GetIgnorePatterns();
             _watcher.EnableRaisingEvents = VSPackage.Options.EnableReload;
-            Telemetry.TrackEvent("Updated settings");
         }
     }
 }
