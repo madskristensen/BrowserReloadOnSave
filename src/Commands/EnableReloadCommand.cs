@@ -8,25 +8,21 @@ namespace BrowserReloadOnSave
     {
         readonly Package _package;
 
-        EnableReloadCommand(Package package)
+        EnableReloadCommand(Package package, OleMenuCommandService commandService)
         {
             _package = package;
 
-            var commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (commandService != null)
-            {
-                var id = new CommandID(PackageGuids.guidBrowserReloadCmdSet, PackageIds.EnableReloadCommandId);
-                var cmd = new OleMenuCommand(Execute, id);
-                cmd.BeforeQueryStatus += BeforeQueryStatus;
-                commandService.AddCommand(cmd);
-            }
+            var id = new CommandID(PackageGuids.guidBrowserReloadCmdSet, PackageIds.EnableReloadCommandId);
+            var cmd = new OleMenuCommand(Execute, id);
+            cmd.BeforeQueryStatus += BeforeQueryStatus;
+            commandService.AddCommand(cmd);
         }
 
         public static EnableReloadCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(Package package, OleMenuCommandService commandService)
         {
-            Instance = new EnableReloadCommand(package);
+            Instance = new EnableReloadCommand(package, commandService);
         }
 
         IServiceProvider ServiceProvider
