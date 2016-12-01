@@ -39,8 +39,6 @@ namespace BrowserReloadOnSave
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            Logger.Initialize(Vsix.Name);
-
             Options = (Options)GetDialogPage(typeof(Options));
             var commandService = await GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
 
