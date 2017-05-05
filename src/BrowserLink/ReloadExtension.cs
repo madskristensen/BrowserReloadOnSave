@@ -77,7 +77,10 @@ namespace BrowserReloadOnSave
             string file = e.FullPath.ToLowerInvariant();
             string ext = Path.GetExtension(file).TrimStart('.');
 
-            if (!string.IsNullOrEmpty(ext) && _extensions.Contains(ext) && !_ignorePatterns.Any(p => file.Contains(p)))
+            if (!string.IsNullOrEmpty(ext) &&
+                !ext.Contains('~') &&
+                !_ignorePatterns.Any(p => file.Contains(p)) &&
+                _extensions.Contains(ext, StringComparer.OrdinalIgnoreCase))
             {
                 Interlocked.Exchange(ref _state, 2);
             }
