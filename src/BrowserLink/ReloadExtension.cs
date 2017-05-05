@@ -31,7 +31,7 @@ namespace BrowserReloadOnSave
             _watcher = new FileSystemWatcher(folder);
             _watcher.Changed += FileChanged;
             _watcher.IncludeSubdirectories = true;
-            _watcher.NotifyFilter = NotifyFilters.Size | NotifyFilters.CreationTime | NotifyFilters.LastWrite;
+            _watcher.NotifyFilter = NotifyFilters.Size | NotifyFilters.CreationTime;
             _watcher.EnableRaisingEvents = VSPackage.Options.EnableReload;
 
             _timer = new Timer(TimerElapsed, null, 0, VSPackage.Options.Delay);
