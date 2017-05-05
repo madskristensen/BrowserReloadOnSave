@@ -74,18 +74,11 @@ namespace BrowserReloadOnSave
 
         void FileChanged(object sender, FileSystemEventArgs e)
         {
-            if (e.ChangeType != WatcherChangeTypes.Changed)
-                return;
-
             string file = e.FullPath.ToLowerInvariant();
             string ext = Path.GetExtension(file).TrimStart('.');
 
-            if (_extensions.Contains(ext) && !_ignorePatterns.Any(p => file.Contains(p)))
+            if (!string.IsNullOrEmpty(ext) && _extensions.Contains(ext) && !_ignorePatterns.Any(p => file.Contains(p)))
             {
-                // Only reload on CSS file changes if it's a ASP.NET Core project, due to a bug in Browser Link
-                if (ext == "css" && !_project.Kind.Equals("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}", StringComparison.OrdinalIgnoreCase))
-                    return;
-
                 Interlocked.Exchange(ref _state, 2);
             }
         }
