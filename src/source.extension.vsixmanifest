@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="2d8aa02a-8810-421f-97b9-86efc573fea3" Version="1.0" Language="en-US" Publisher="Mads Kristensen" />
+        <Identity Id="2d8aa02a-8810-421f-97b9-86efc573fea3" Version="1.1" Language="en-US" Publisher="Mads Kristensen" />
         <DisplayName>Browser Reload on Save</DisplayName>
         <Description xml:space="preserve">A Visual Studio extension for ASP.NET projects that leverages Browser Link to to reload all connected browsers when files are saved in Visual Studio.</Description>
         <MoreInfo>https://github.com/madskristensen/BrowserReloadOnSave</MoreInfo>

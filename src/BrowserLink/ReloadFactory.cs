@@ -39,7 +39,7 @@ namespace BrowserReloadOnSave
 
         public string GetScript()
         {
-            using (var stream = GetType().Assembly.GetManifestResourceStream("BrowserReloadOnSave.BrowserLink.Reload.js"))
+            using (Stream stream = GetType().Assembly.GetManifestResourceStream("BrowserReloadOnSave.BrowserLink.Reload.js"))
             using (var reader = new StreamReader(stream))
             {
                 return reader.ReadToEnd();
@@ -57,7 +57,7 @@ namespace BrowserReloadOnSave
 
         static void SolutionEvents_AfterClosing()
         {
-            foreach (var project in Extensions.Keys)
+            foreach (Project project in Extensions.Keys)
             {
                 Extensions[project].Dispose();
             }
