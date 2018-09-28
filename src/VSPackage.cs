@@ -39,9 +39,9 @@ namespace BrowserReloadOnSave
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            var commandService = await GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-
             await JoinableTaskFactory.SwitchToMainThreadAsync();
+
+            var commandService = await GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
 
             Options = (Options)GetDialogPage(typeof(Options));
             EnableReloadCommand.Initialize(this, commandService);
